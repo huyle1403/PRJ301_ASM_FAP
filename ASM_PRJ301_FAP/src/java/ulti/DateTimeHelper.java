@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  *
- * @author sonnt
+ * @author Huy
  */
 public class DateTimeHelper {
 
@@ -42,6 +42,9 @@ public class DateTimeHelper {
         calendar.add(Calendar.DAY_OF_YEAR, days);
         return calendar.getTime();
     }
+// trả về 1 list dates, tạo 1 biến temp 
+// vòng lặp sẽ dừng lại khi đằng sau temp là To
+// rồi add temp vào list dates
 
     public static ArrayList<java.sql.Date> getListBetween(Date from, Date to) {
         ArrayList<java.sql.Date> dates = new ArrayList<>();
