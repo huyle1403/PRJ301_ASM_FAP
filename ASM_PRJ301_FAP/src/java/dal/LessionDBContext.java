@@ -11,10 +11,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Attendence;
 import model.Group;
 import model.Lecturer;
 import model.Lession;
 import model.Room;
+import model.Student;
 import model.Subject;
 import model.TimeSlot;
 
@@ -147,6 +149,122 @@ public class LessionDBContext extends DBContext {
         }
 
         return lessions;
+
+    }
+
+    public ArrayList<Attendence> getAttendencesByLession(int leid) {
+        ArrayList<Attendence> attendences = new ArrayList<>();
+        try {
+            String sql = "SELECT \n"
+                    + "   s.StudentID,s.StudentName,\n"
+                    + "   a.AttendenceID,a.description,a.isPresent,a.capturedtime\n"
+                    + "   FROM Student s INNER JOIN Enrollment e ON s.StudentID = e.StudentID\n"
+                    + "    INNER JOIN [Group] g ON g.GroupID = e.GroupID\n"
+                    + "    INNER JOIN Lession les ON les.GroupID = g.GroupID\n"
+                    + "    LEFT JOIN Attendence a ON a.LessionID = les.LessionID AND a.StudentID = s.StudentID\n"
+                    + "                    WHERE les.LessionID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, leid);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Attendence att = new Attendence();
+                Student s = new Student();
+                Lession les = new Lession();
+                s.setId(rs.getInt("StudentID"));
+                s.setName(rs.getString("StudentName"));
+
+                att.setStudent(s);
+
+                les.setId(leid);
+                att.setLession(les);
+
+                att.setId(rs.getInt("AttendenceID"));
+                if (att.getId() != 0) {
+                    att.setDescription(rs.getString("description"));
+                    att.setPresent(rs.getBoolean("isPresent"));
+                    att.setTime(rs.getTimestamp("capturedtime"));
+                }
+                attendences.add(att);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return attendences;
+    }
+      public ArrayList<Student> getStudentsByLession(int leid) {
+        ArrayList<Student> students = new ArrayList<>();
+        try {
+            String sql = "SELECT \n" +
+"                   s.StudentID,s.StudentName\n" +
+"                  FROM Student s INNER JOIN Enrollment e ON s.StudentID = e.StudentID\n" +
+"                   					INNER JOIN [Group] g ON g.GroupID = e.GroupID\n" +
+"                   					INNER JOIN Lession les ON les.GroupID = g.GroupID\n" +
+"                   WHERE les.LessionID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, leid);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next())
+            {
+                Student s = new Student();
+                s.setId(rs.getInt("StudentID"));
+                s.setName(rs.getString("StudentName"));
+                students.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return students;
+    }
+
+    public void takeAttendances(int leid, ArrayList<Attendence> atts) {
+        try {
+            connection.setAutoCommit(false);
+            String sql_remove_atts = "DELETE Attendence WHERE LessionID = ?";
+            PreparedStatement stm_remove_atts = connection.prepareStatement(sql_remove_atts);
+            stm_remove_atts.setInt(1, leid);
+            stm_remove_atts.executeUpdate();
+
+            for (Attendence att : atts) {
+                String sql_insert_att = "INSERT INTO [Attendence]\n"
+                        + "           ([LessionID]\n"
+                        + "           ,[StudentID]\n"
+                        + "           ,[description]\n"
+                        + "           ,[isPresent]\n"
+                        + "           ,[capturedtime])\n"
+                        + "     VALUES\n"
+                        + "           (?\n"
+                        + "           ,?\n"
+                        + "           ,?\n"
+                        + "           ,?\n"
+                        + "           ,GETDATE())";
+                PreparedStatement stm_insert_att = connection.prepareStatement(sql_insert_att);
+                stm_insert_att.setInt(1, leid);
+                stm_insert_att.setInt(2, att.getStudent().getId());
+                stm_insert_att.setString(3, att.getDescription());
+                stm_insert_att.setBoolean(4, att.isPresent());
+                stm_insert_att.executeUpdate();
+            }
+
+            String sql_update_lession = "UPDATE Lession SET isAttended = 1 WHERE LessionID =?";
+            PreparedStatement stm_update_lession = connection.prepareStatement(sql_update_lession);
+            stm_update_lession.setInt(1, leid);
+            stm_update_lession.executeUpdate();
+
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(LessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(LessionDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(LessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
     }
 }

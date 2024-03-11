@@ -42,8 +42,12 @@
                             <c:forEach items="${requestScope.lessions}" var="les">
                                 <c:if test="${les.date eq d and les.slot.id eq slot.id}">
                                     ${les.group.name} - ${les.group.subject.name}
-                                </c:if>
-                            </c:forEach>
+
+                                    <a href="att?id=${les.id}">
+                                        <c:if test="${les.attended}">Edit</c:if>
+                                        <c:if test="${!les.attended}">Take</c:if>
+                                    </c:if>
+                                </c:forEach>
                         </td>
                     </c:forEach>
                 </tr>
