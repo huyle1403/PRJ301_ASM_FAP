@@ -125,8 +125,12 @@ public class LessionDBContext extends DBContext {
 
                 group.setId(rs.getInt("GroupID"));
                 group.setName(rs.getString("GroupName"));
+                
+                
                 slot.setId(rs.getInt("TimeSlotID"));
                 slot.setName(rs.getString("TimeSlotName"));
+                
+                
                 group.setSubject(sub);
                 les.setGroup(group);
 

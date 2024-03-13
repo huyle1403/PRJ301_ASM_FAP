@@ -26,7 +26,7 @@ public class AttendanceController extends HttpServlet{
        int leid = Integer.parseInt(req.getParameter("id"));
         LessionDBContext db = new LessionDBContext();
         ArrayList<Student> students = db.getStudentsByLession(leid);
-        ArrayList<Attendence> atts = new ArrayList<>();
+        ArrayList<Attendence> attendance = new ArrayList<>();
         Lession lession = new Lession();
         lession.setId(leid);
         for (Student student : students) {
@@ -35,10 +35,10 @@ public class AttendanceController extends HttpServlet{
             a.setStudent(student);
             a.setDescription(req.getParameter("description"+student.getId()));
             a.setPresent(req.getParameter("present"+student.getId()).equals("yes"));
-            atts.add(a);
+            attendance.add(a);
         }
-        db.takeAttendances(leid, atts);
-        resp.sendRedirect("att?id="+leid);
+        db.takeAttendances(leid, attendance);
+        resp.sendRedirect("attendance?id="+leid);
     }
 
     @Override

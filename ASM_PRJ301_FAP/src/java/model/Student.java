@@ -5,6 +5,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -14,23 +15,22 @@ import java.util.ArrayList;
 public class Student {
 
     private int id;
-    private String name;
-    private ArrayList<Group> groups = new ArrayList<>();
+    private String name,address;
+    private Group group;
+    private Date date;
+    private boolean gender;
 
+    
     public Student() {
     }
 
-    public Student(int id, String name) {
+    public Student(int id, String name, String address, Group group, Date date, boolean gender) {
         this.id = id;
         this.name = name;
-    }
-
-    public ArrayList<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(ArrayList<Group> groups) {
-        this.groups = groups;
+        this.address = address;
+        this.group = group;
+        this.date = date;
+        this.gender = gender;
     }
 
     public int getId() {
@@ -47,6 +47,38 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public boolean isGender() {
+        return gender;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
     }
 
 }
