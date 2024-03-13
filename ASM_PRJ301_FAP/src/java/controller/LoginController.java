@@ -85,7 +85,8 @@ public class LoginController extends HttpServlet {
         if (acc == null) {
             response.getWriter().println("login fail");
         } else {
-            response.getWriter().println("login success");
+        request.getRequestDispatcher("/view/viewInSite/home.jsp").forward(request, response);
+
         }
     }
 

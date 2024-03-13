@@ -22,7 +22,7 @@ public class GroupDBContext extends DBContext {
     public ArrayList<Group> getGroupByID(int groupid) {
         ArrayList<Group> groups = new ArrayList<>();
         try {
-            String sql = "SELECT g.GroupID, g.GroupName, s.StudentID,s.StudentName,s.Address,s.DateOfBrirth,s.Gender\n"
+            String sql = "SELECT g.GroupID, g.GroupName, s.StudentID,s.StudentName,s.Address,s.DateOfBirth,s.Gender\n"
                     + "  FROM [Group] g inner join Student s on g.GroupID = s.GroupID\n"
                     + "  where g.GroupID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -40,10 +40,11 @@ public class GroupDBContext extends DBContext {
               
               s.setId(rs.getInt("StudentID"));
               s.setName(rs.getString("StudentName"));
+              s.setAddress(rs.getString("Address"));
               s.setDate(rs.getDate("DateOfBirth"));
               s.setGender(rs.getBoolean("Gender"));
               
-              g.setStudents(s);
+              g.setStudent(s);
             
               groups.add(g);
             }

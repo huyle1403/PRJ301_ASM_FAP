@@ -12,23 +12,41 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <style>
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th, td {
+                text-align: center;
+                padding: 8px;
+                border: 1px solid #ddd;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+        </style>
     </head>
     <body>
-
-        <form action="timetable" method="GET">
-            <input type="hidden" value="${param.id}" name="id"/>
-            From: <input type="date" name="from" value="${requestScope.from}"/> -
-            <input type="date" name="to" value="${requestScope.to}"/>
-            <input type="submit" value="View"/>
-        </form>
-        <table border="1px" >
+        <table border="1px">
             <tr>
-                <td></td>
+                <td>
+                    <form action="timeTable" method="GET">
+                        From : <input type="date" name="from" value="${requestScope.from}" /> <br>
+                       To: <input  type="date" name="to" value="${requestScope.to}"/>
+                        <select name="id">
+                            <option value="${param.id}">${param.id}</option>
+                            <c:forEach  var="i" begin="1" end="4">
+                                <option value="${i}">${i}</option>
+                            </c:forEach>
+                        </select>
+                        <input type="submit" value="View"/>
+                    </form>
+                </td>
                 <c:forEach items="${requestScope.dates}" var="d">
                     <td>
-                        <div > 
-                            (<fmt:formatDate pattern="E" value="${d}" />)
-                        </div>
+                        <div> (<fmt:formatDate pattern="E" value="${d}" />) </div>
                         <div>${d}</div>
                     </td>
                 </c:forEach>
@@ -42,19 +60,16 @@
                             <c:forEach items="${requestScope.lessions}" var="les">
                                 <c:if test="${les.date eq d and les.slot.id eq slot.id}">
                                     ${les.group.name} - ${les.group.subject.name}
-
-                                    <a href="att?id=${les.id}">
+                                    <a href="attendance?id=${les.id}">
                                         <c:if test="${les.attended}">Edit</c:if>
                                         <c:if test="${!les.attended}">Take</c:if>
-                                    </c:if>
-                                </c:forEach>
+                                        </a>
+                                </c:if>
+                            </c:forEach>
                         </td>
                     </c:forEach>
                 </tr>
             </c:forEach>
         </table>
-
-
-
     </body>
 </html>

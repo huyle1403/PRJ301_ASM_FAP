@@ -13,23 +13,26 @@
     </head>
     <body>
 
-        <h1 >Ten Lop: ${requestScope.listGroup.getId()}</h1>
      
+        <h1 >Ten Lop: ${requestScope.listGroups[0].name} </h1>
+
         <table border="1px">
             <tr>
+                <td>Gender</td>
                 <td>Student ID</td>
                 <td>Name</td>
                 <td>Address</td>
                 <td>Date Of Birth</td>
-                <td>Gender</td>
+
             </tr>
             <c:forEach items="${requestScope.listGroups}" var="gr">
                 <tr>
-                    <td> ${gr.Student.id} </td>
-                    <td> ${gr.Student.name} </td>
-                    <td> ${gr.Student.address} </td>
-                    <td> ${gr.Student.getDate()} </td>
-                    <td> ${gr.Student.isGender()} </td>
+                    <td> ${gr.student.gender} </td>
+                    <td> ${gr.student.id} </td>
+                    <td> ${gr.student.name} </td>
+                    <td> ${gr.student.address} </td>
+                    <td> ${gr.student.date} </td>
+
                 </tr>
             </c:forEach>
 

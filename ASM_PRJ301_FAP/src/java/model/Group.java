@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Group {
     private int id;
     private String name;
-    private Student students ;
+    private Student student ;
     private Lecturer lecturer; 
     private Subject subject;
 
@@ -34,12 +34,12 @@ public class Group {
     }
     
 
-    public Student getStudents() {
-        return students;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudents(Student students) {
-        this.students = students;
+    public void setStudent(Student student) {
+        this.student = student;
     }
     
 

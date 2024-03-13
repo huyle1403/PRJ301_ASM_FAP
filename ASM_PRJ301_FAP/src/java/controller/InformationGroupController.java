@@ -61,6 +61,7 @@ public class InformationGroupController extends HttpServlet {
         int GroupID = Integer.parseInt(request.getParameter("id"));
         GroupDBContext db = new GroupDBContext();
         ArrayList<Group> listGroups = db.getGroupByID(GroupID);
+        
         request.setAttribute("listGroups", listGroups);
         request.getRequestDispatcher("/view/viewInSite/InforGroup.jsp").forward(request, response);
     } 

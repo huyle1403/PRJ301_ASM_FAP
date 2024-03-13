@@ -13,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="att" method="POST">
+        <form action="attendance" method="POST">
             <input type="hidden" name="id" value="${param.id}" />
             <table border="1px">
                 <tr>
