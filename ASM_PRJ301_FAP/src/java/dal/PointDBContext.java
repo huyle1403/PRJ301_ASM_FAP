@@ -36,10 +36,10 @@ public class PointDBContext extends DBContext<Object> {
             while (rs.next()) {
                 Point p = new Point();
                 Subject s = new Subject();
-
+                Student stu = new Student();
                 s.setName(rs.getString("SubjectName"));
-
-                p.setStudentName(rs.getString("StudentName"));
+                stu.setName(rs.getString("StudentName"));
+               
                 p.setProgressTest1(rs.getInt("ProgressTest1"));
                 p.setProgressTest2(rs.getInt("ProgressTest2"));
                 p.setParticipation(rs.getInt("Participation"));
@@ -47,6 +47,7 @@ public class PointDBContext extends DBContext<Object> {
                 p.setAssignment(rs.getInt("Assignment"));
                 p.setFinalExam(rs.getInt("FinalExam"));
                 
+                p.setStudent(stu);
                 p.setSubject(s);
                 
                 points.add(p);

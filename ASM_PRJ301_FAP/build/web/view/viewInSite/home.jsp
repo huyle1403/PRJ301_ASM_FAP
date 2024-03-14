@@ -58,6 +58,7 @@
         <a href="http://localhost:9999/ASM_PRJ301_FAP/timeTable?id=2">Time Table</a>
         <a href="http://localhost:9999/ASM_PRJ301_FAP/attendance?id=1">Attendance</a>
         <a href="http://localhost:9999/ASM_PRJ301_FAP/checkGroup?id=1">Information Group</a>
+        <a href="http://localhost:9999/ASM_PRJ301_FAP/point?studentid=2&subjectid=1">Mark Report</a>
     </div>
 </body>
 </html>

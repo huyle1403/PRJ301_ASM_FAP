@@ -12,11 +12,11 @@ public class Point {
     private Subject subject;
     private Student student;
     private int progressTest1,progressTest2,participation,assignment,practicalExam,finalExam;
-    private String StudentName;
+
     public Point() {
     }
 
-    public Point(Subject subject, Student student, int progressTest1, int progressTest2, int participation, int assignment, int practicalExam, int finalExam, String StudentName) {
+    public Point(Subject subject, Student student, int progressTest1, int progressTest2, int participation, int assignment, int practicalExam, int finalExam) {
         this.subject = subject;
         this.student = student;
         this.progressTest1 = progressTest1;
@@ -25,18 +25,8 @@ public class Point {
         this.assignment = assignment;
         this.practicalExam = practicalExam;
         this.finalExam = finalExam;
-        this.StudentName = StudentName;
     }
 
-  
-
-    public String getStudentName() {
-        return StudentName;
-    }
-
-    public void setStudentName(String StudentName) {
-        this.StudentName = StudentName;
-    }
 
     public Subject getSubject() {
         return subject;

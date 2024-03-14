@@ -4,7 +4,6 @@
  */
 package controller;
 
-
 import dal.PointDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -59,10 +58,13 @@ public class PointController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int StudentId = Integer.parseInt(request.getParameter("studentId"));
-        int SubjectId = Integer.parseInt(request.getParameter("subjectId"));
+        int StudentId = Integer.parseInt(request.getParameter("studentid"));
+        int SubjectId = Integer.parseInt(request.getParameter("subjectid"));
         PointDBContext db = new PointDBContext();
+
         ArrayList<Point> listPoints = db.getPointByID(StudentId, SubjectId);
+        request.setAttribute("listPoint", listPoints);
+
         request.getRequestDispatcher("/view/viewInSite/checkPoint.jsp").forward(request, response);
     }
 
