@@ -43,6 +43,9 @@
         input[type="submit"]:hover {
             background-color: #FF8C00; /* Màu cam nhạt */
         }
+        h3{
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -52,6 +55,7 @@
         <input type="text" name="username" id="username"/><br/>
         <label for="password">Pass:</label><br/>
         <input type="password" name="password" id="password"/><br/>
+        <h3>${mess}</h3>
         <input type="submit" value="Login"/>
     </form>
 </body>

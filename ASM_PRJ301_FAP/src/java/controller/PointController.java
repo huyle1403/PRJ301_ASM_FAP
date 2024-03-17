@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.GroupDBContext;
 import dal.PointDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,7 +12,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import model.Group;
 import model.Point;
 
 /**
@@ -58,14 +61,24 @@ public class PointController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int StudentId = Integer.parseInt(request.getParameter("studentid"));
-        int SubjectId = Integer.parseInt(request.getParameter("subjectid"));
-        PointDBContext db = new PointDBContext();
 
-        ArrayList<Point> listPoints = db.getPointByID(StudentId, SubjectId);
-        request.setAttribute("listPoint", listPoints);
+        HttpSession session = request.getSession();
+        boolean isLogged = (session != null && session.getAttribute("Userlogged") != null);
 
-        request.getRequestDispatcher("/view/viewInSite/checkPoint.jsp").forward(request, response);
+        if (isLogged) {
+            int StudentId = Integer.parseInt(request.getParameter("studentid"));
+            int SubjectId = Integer.parseInt(request.getParameter("subjectid"));
+            PointDBContext db = new PointDBContext();
+
+            ArrayList<Point> listPoints = db.getPointByID(StudentId, SubjectId);
+            request.setAttribute("listPoint", listPoints);
+
+            request.getRequestDispatcher("/view/viewInSite/checkPoint.jsp").forward(request, response);
+        } else {
+            request.setAttribute("mess", "Access Denied");
+            request.getRequestDispatcher("/view/viewLogin/login.jsp").forward(request, response);
+        }
+
     }
 
     /**

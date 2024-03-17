@@ -79,13 +79,15 @@ public class LoginController extends HttpServlet {
 
         LoginDBContext db = new LoginDBContext();
         Account acc = db.check(u, p);
-
+        
         HttpSession session = request.getSession();
         session.setAttribute("account", acc);
         if (acc == null) {
-            response.getWriter().println("login fail");
+            request.setAttribute("mess", "password or usename incorrect!!!");
+            request.getRequestDispatcher("/view/viewLogin/login.jsp").forward(request, response);
         } else {
-        request.getRequestDispatcher("/view/viewInSite/home.jsp").forward(request, response);
+            session.setAttribute("Userlogged", acc);
+            request.getRequestDispatcher("/view/viewInSite/home.jsp").forward(request, response);
 
         }
     }

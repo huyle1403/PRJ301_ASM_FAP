@@ -10,6 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +31,14 @@ public class TimeTableController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
+        
+        
+        HttpSession session = req.getSession();
+        boolean isLogged = (session != null && session.getAttribute("Userlogged") != null);
+
+        if (isLogged) {
+        
         int lid = Integer.parseInt(req.getParameter("id"));
         String raw_from = req.getParameter("from");
         String raw_to = req.getParameter("to");
@@ -67,6 +76,12 @@ public class TimeTableController extends HttpServlet {
         req.setAttribute("lessions", lessions);
 
         req.getRequestDispatcher("/view/viewInSite/timetable.jsp").forward(req, resp);
+        } else {
+            req.setAttribute("mess", "Access Denied");
+            req.getRequestDispatcher("/view/viewLogin/login.jsp").forward(req, resp);
+        }
+        
+        
 
     }
 
