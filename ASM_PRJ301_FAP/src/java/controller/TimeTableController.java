@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import model.Lession;
+import model.Room;
 import model.TimeSlot;
 import ulti.DateTimeHelper;
 
@@ -31,15 +32,13 @@ public class TimeTableController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
-        
-        
+ 
         HttpSession session = req.getSession();
         boolean isLogged = (session != null && session.getAttribute("Userlogged") != null);
 
         if (isLogged) {
         
-        int lid = Integer.parseInt(req.getParameter("id"));
+        String nameLec = req.getParameter("nameLecturer");
         String raw_from = req.getParameter("from");
         String raw_to = req.getParameter("to");
         java.sql.Date from = null;
@@ -67,14 +66,17 @@ public class TimeTableController extends HttpServlet {
         ArrayList<TimeSlot> slots = slotDB.list();
 
         LessionDBContext lessDB = new LessionDBContext();
-        ArrayList<Lession> lessions = lessDB.getBy(lid, from, to);
-
+        ArrayList<Lession> lessions = lessDB.getBy(nameLec, from, to);
+        
+        LessionDBContext roomDB = new LessionDBContext();
+        ArrayList<Lession> rooms = roomDB.getBy(nameLec, from, to);
+        
         req.setAttribute("slots", slots);
         req.setAttribute("dates", dates);
         req.setAttribute("from", from);
         req.setAttribute("to", to);
         req.setAttribute("lessions", lessions);
-
+        req.setAttribute("rooms", rooms);
         req.getRequestDispatcher("/view/viewInSite/timetable.jsp").forward(req, resp);
         } else {
             req.setAttribute("mess", "Access Denied");

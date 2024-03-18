@@ -87,7 +87,7 @@
 <body>
     <form action="point" method="GET"> 
         StudentID: <input type="text" name="studentid">
-        SubjectID : <input type="text" name="subjectid">
+        SubjectName : <input type="text" name="subjectname">
         <input type="submit" value="View">
     </form>
     <c:forEach items="${requestScope.listPoint}" var="p">

@@ -6,12 +6,14 @@ package model;
 
 import java.sql.Date;
 import java.util.ArrayList;
+
 /**
  *
  * @author Huy
  */
 public class Lession {
-      private int id;
+
+    private int id;
     private Date date;
     private boolean attended;
     private Group group;
@@ -19,6 +21,29 @@ public class Lession {
     private Room room;
     private Lecturer lecturer;
     private ArrayList<Attendence> atts = new ArrayList<>();
+    private Subject subject;
+
+    public Lession(int id, Date date, boolean attended, Group group, TimeSlot slot, Room room, Lecturer lecturer, Subject subject) {
+        this.id = id;
+        this.date = date;
+        this.attended = attended;
+        this.group = group;
+        this.slot = slot;
+        this.room = room;
+        this.lecturer = lecturer;
+        this.subject = subject;
+    }
+
+    public Lession() {
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
 
     public int getId() {
         return id;
@@ -83,5 +108,5 @@ public class Lession {
     public void setAtts(ArrayList<Attendence> atts) {
         this.atts = atts;
     }
-    
+
 }

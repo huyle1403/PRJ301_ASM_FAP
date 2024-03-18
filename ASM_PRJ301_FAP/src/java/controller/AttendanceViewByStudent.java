@@ -4,24 +4,22 @@
  */
 package controller;
 
-import dal.GroupDBContext;
-import dal.PointDBContext;
+import dal.LessionDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
-import model.Group;
-import model.Point;
+import model.Attendence;
+import model.Lession;
 
 /**
  *
  * @author Huy
  */
-public class PointController extends HttpServlet {
+public class AttendanceViewByStudent extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +38,10 @@ public class PointController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PointController</title>");
+            out.println("<title>Servlet AttendanceViewByStudent</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet PointController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AttendanceViewByStudent at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,49 +59,38 @@ public class PointController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        boolean isLogged = (session != null && session.getAttribute("Userlogged") != null);
-
-        if (isLogged) {
-
-            int StudentId = Integer.parseInt(request.getParameter("studentid"));
-            String Subjectname = request.getParameter("subjectname");
-            PointDBContext db = new PointDBContext();
-
-            ArrayList<Point> listPoints = db.getPointByID(StudentId, Subjectname);
-            request.setAttribute("listPoint", listPoints);
-
-            request.getRequestDispatcher("/view/viewInSite/checkPoint.jsp").forward(request, response);
-        } else {
-            request.setAttribute("mess", "Access Denied");
-            request.getRequestDispatcher("/view/viewLogin/login.jsp").forward(request, response);
+        int StuID = Integer.parseInt(request.getParameter("studentId"));
+         int SubID = Integer.parseInt(request.getParameter("subjectId"));
+        LessionDBContext db = new LessionDBContext();
+        ArrayList<Lession> lessions = db.getAttendencesByLessionViewStudent(StuID, SubID);
+        request.setAttribute("lessions", lessions);
+        request.getRequestDispatcher("/view/viewInSite/AttendanceViewStudent.jsp").forward(request, response);
+    }
+        /**
+         * Handles the HTTP <code>POST</code> method.
+         *
+         * @param request servlet request
+         * @param response servlet response
+         * @throws ServletException if a servlet-specific error occurs
+         * @throws IOException if an I/O error occurs
+         */
+        @Override
+        protected void doPost
+        (HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+            processRequest(request, response);
         }
 
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
+        /**
+         * Returns a short description of the servlet.
+         *
+         * @return a String containing servlet description
+         */
+        @Override
+        public String getServletInfo
+        
+            () {
         return "Short description";
-    }// </editor-fold>
+        }// </editor-fold>
 
-}
+    }

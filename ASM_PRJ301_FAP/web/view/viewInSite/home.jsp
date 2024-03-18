@@ -55,10 +55,10 @@
 <body>
     <div class="container">
         <h1>Welcome to FAP</h1>
-        <a href="http://localhost:9999/ASM_PRJ301_FAP/timeTable?id=2">Time Table</a>
-        <a href="http://localhost:9999/ASM_PRJ301_FAP/attendance?id=1">Attendance</a>
+        <a href="http://localhost:9999/ASM_PRJ301_FAP/timeTable?from=2024-03-17&to=2024-03-23&nameLecturer=sonnt05">Time Table</a>
+        <a href="http://localhost:9999/ASM_PRJ301_FAP/view/viewInSite/HomeToAttendance.jsp">Attendance</a>
         <a href="http://localhost:9999/ASM_PRJ301_FAP/checkGroup?id=1">Information Group</a>
-        <a href="http://localhost:9999/ASM_PRJ301_FAP/point?studentid=2&subjectid=1">Mark Report</a>
+        <a href="http://localhost:9999/ASM_PRJ301_FAP/point?studentid=2&subjectname=mas291">Mark Report</a>
     </div>
 </body>
 </html>

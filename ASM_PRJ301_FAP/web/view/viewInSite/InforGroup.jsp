@@ -44,7 +44,6 @@
             .link-container a:hover {
                 background-color: #cc5500;
             }
-
             table {
                 border-collapse: collapse;
                 width: 80%;
@@ -66,7 +65,10 @@
                 width: 50px;
                 height: auto;
             }
-          
+            .dong1{
+                background-color: #6B90DA;
+            }
+            
         </style>
     </head>
     <body>
@@ -80,7 +82,7 @@
         <h1>Group Information</h1>
 
         <table>
-            <tr>
+            <tr class="dong1">
                 <td>Index</td>
                 <td>Gender</td>
                 <td>Student ID</td>
