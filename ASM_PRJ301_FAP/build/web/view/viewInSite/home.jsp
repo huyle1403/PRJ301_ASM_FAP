@@ -62,8 +62,8 @@
                 padding: 10px 20px;
                 border: none;
                 border-radius: 5px;
-                background-color: #ff6600; /* Màu cam */
-                color: #fff; /* Màu chữ trắng */
+                background-color: #ff6600;
+                color: #fff; 
                 font-size: 16px;
                 font-weight: bold;
                 cursor: pointer;
@@ -75,7 +75,7 @@
             }
 
         </style>
-    <form action="LogoutController" method="POST" class="logout-form">
+    <form action="logoutController" method="POST" class="logout-form">
         <input type="submit" value="Logout">
     </form>
     <body>
