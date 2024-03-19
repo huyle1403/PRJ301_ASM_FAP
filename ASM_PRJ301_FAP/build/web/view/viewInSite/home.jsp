@@ -63,7 +63,7 @@
                 border: none;
                 border-radius: 5px;
                 background-color: #ff6600;
-                color: #fff; 
+                color: #fff;
                 font-size: 16px;
                 font-weight: bold;
                 cursor: pointer;
@@ -71,13 +71,16 @@
             }
 
             .logout-form input[type="submit"]:hover {
-                background-color: #cc5500;  
+                background-color: #cc5500;
             }
-
+           
         </style>
-    <form action="logoutController" method="POST" class="logout-form">
+
+    <form class="logout-form " action="/ASM_PRJ301_FAP/logoutController" method="post">
         <input type="submit" value="Logout">
     </form>
+
+
     <body>
         <div class="container">
             <h1>Welcome to FAP</h1>

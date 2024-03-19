@@ -84,10 +84,10 @@ public class LoginController extends HttpServlet {
         session.setAttribute("account", acc);
         if (acc == null) {
             request.setAttribute("mess", "password or usename incorrect!!!");
-            request.getRequestDispatcher("/view/viewLogin/login.jsp").forward(request, response);
+            request.getRequestDispatcher("view/viewLogin/login.jsp").forward(request, response);
         } else {
             session.setAttribute("Userlogged", acc);
-            request.getRequestDispatcher("/view/viewInSite/home.jsp").forward(request, response);
+            request.getRequestDispatcher("view/viewInSite/home.jsp").forward(request, response);
         }
     }
 
