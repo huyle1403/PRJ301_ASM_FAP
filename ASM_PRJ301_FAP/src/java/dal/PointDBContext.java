@@ -58,4 +58,5 @@ public class PointDBContext extends DBContext<Object> {
         }
         return points;
     }
+   
 }

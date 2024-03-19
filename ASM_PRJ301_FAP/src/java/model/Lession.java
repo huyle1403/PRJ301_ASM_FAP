@@ -22,8 +22,12 @@ public class Lession {
     private Lecturer lecturer;
     private ArrayList<Attendence> atts = new ArrayList<>();
     private Subject subject;
+    private Student student;
 
-    public Lession(int id, Date date, boolean attended, Group group, TimeSlot slot, Room room, Lecturer lecturer, Subject subject) {
+    public Lession() {
+    }
+
+    public Lession(int id, Date date, boolean attended, Group group, TimeSlot slot, Room room, Lecturer lecturer, Subject subject, Student student) {
         this.id = id;
         this.date = date;
         this.attended = attended;
@@ -32,17 +36,7 @@ public class Lession {
         this.room = room;
         this.lecturer = lecturer;
         this.subject = subject;
-    }
-
-    public Lession() {
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+        this.student = student;
     }
 
     public int getId() {
@@ -107,6 +101,22 @@ public class Lession {
 
     public void setAtts(ArrayList<Attendence> atts) {
         this.atts = atts;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
 }

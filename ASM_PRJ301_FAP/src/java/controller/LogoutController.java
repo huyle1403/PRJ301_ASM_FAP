@@ -4,8 +4,6 @@
  */
 package controller;
 
-import dal.DBContext;
-import dal.LoginDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,13 +11,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.Account;
 
 /**
  *
  * @author Huy
  */
-public class LoginController extends HttpServlet {
+public class LogoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +35,10 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet login</title>");
+            out.println("<title>Servlet LogoutController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet login at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LogoutController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,7 +56,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/view/viewLogin/login.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -73,22 +70,9 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String u = request.getParameter("username");
-        String p = request.getParameter("password");
-
-        LoginDBContext db = new LoginDBContext();
-        Account acc = db.check(u, p);
-        
         HttpSession session = request.getSession();
-        session.setAttribute("account", acc);
-        if (acc == null) {
-            request.setAttribute("mess", "password or usename incorrect!!!");
-            request.getRequestDispatcher("/view/viewLogin/login.jsp").forward(request, response);
-        } else {
-            session.setAttribute("Userlogged", acc);
-            request.getRequestDispatcher("/view/viewInSite/home.jsp").forward(request, response);
-        }
+        session.invalidate(); 
+        response.sendRedirect("login.jsp");
     }
 
     /**

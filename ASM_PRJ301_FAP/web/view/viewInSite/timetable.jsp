@@ -22,7 +22,7 @@
 
             table {
                 border-collapse: collapse;
-                width: 80%; /* Đặt chiều rộng của bảng */
+                width: 80%; 
                 margin: 20px auto;
                 border: 1px solid #ddd;
             }
@@ -71,12 +71,12 @@
                 text-decoration: underline;
             }
 
-            .edit {
-                color: blue;
+            .attended {
+                color: green;
             }
 
-            .take {
-                color: green;
+            .Notyet {
+                color: red;
             }
 
             .dong1 {
@@ -88,9 +88,36 @@
                 text-align: center; 
                 margin-bottom: 20px; 
             }
+             .link-container {
+                text-align: left;
+                margin: 20px auto;
+                display: block;
+                padding-left: 20px;
+            }
+
+            .link-container a {
+
+                color: white;
+                background-color: orange;
+                text-decoration: none;
+                transition: color 0.3s ease;
+                padding: 10px;
+                margin-left: 30px;
+                margin-top: 153px;
+            }
+
+            .link-container a:hover {
+                color: #0056b3;
+                background-color: #f0f0f0;
+                border-radius: 5px;
+            }
         </style>
     </head>
     <body>
+         <div class="link-container">
+            <a href="http://localhost:9999/ASM_PRJ301_FAP/view/viewInSite/home.jsp">Home</a>
+        </div>
+
         </br> </br> </br>
         <div class="form-container">
             <form action="timeTable" method="GET">
@@ -128,9 +155,9 @@
                         <td>
                             <c:forEach items="${requestScope.lessions}" var="les">
                                 <c:if test="${les.date eq d and les.slot.id eq slot.id}">
-                                    ${les.group.name} <br/> ${les.group.subject.name} at - ${les.room.name}
-                                    <a href="attendance?id=${les.id}" class="${les.attended ? 'edit' : 'take'}">
-                                        ${les.attended ? 'Edit' : 'Take'}
+                                    ${les.group.name} <br/> ${les.group.subject.name} at - ${les.room.name}</br>
+                                    <a href="attendance?id=${les.id}" class="${les.attended ? 'attended' : 'Notyet'}">
+                                        (${les.attended ? 'attended' : 'Not yet'})
                                     </a>
                                 </c:if>
                             </c:forEach>
